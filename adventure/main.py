@@ -43,33 +43,34 @@ Rooms = {                                               # create a dictionary ca
 
     },
 
-        "blue": {
-            "name": "The Blue room",
-            "description": """\
-                This room is blue.
-                It's a large cave of bluish rock, with a bubbling natural fountain at the center of it.
-                The water looks drinkable.
-                Through an opening in the north wall, you see something glittering, and hear sounds of a large beast breathing as if asleep.
-                """,
-            "exits": {
-                "west": "green",
-                "north": "golden"
-            },
-            "items": []
+    "blue": {
+        "name": "The Blue room",
+        "description": """\
+            This room is blue.
+            It's a large cave of bluish rock, with a bubbling natural fountain at the center of it.
+            The water looks drinkable.
+            Through an opening in the north wall, you see something glittering, and hear sounds of a large beast breathing as if asleep.
+            """,
+        "exits": {
+            "west": "green",
+            "north": "golden"
         },
+        "items": []
+    },
 
-        "golden": {
-            "name": "The Golden room",
-            "description": """\
-                This room is golden.
-                The huge cave is filled with treasure, every inch of it bedecked with gems and gold.
-                In the middle of the cave is a mountain of gold, atop which a sleeping dragon lies,
-                as golden in color as the rest of the room.""",
-            "exits": {
-                "south": "blue"
-            },
-            "items": ["gold", "gold", "gold"]
-        }
+    "golden": {
+        "name": "The Golden room",
+        "description": """\
+            This room is golden.
+            The huge cave is filled with treasure, every inch of it bedecked with gems and gold.
+            In the middle of the cave is a mountain of gold, atop which a sleeping dragon lies,
+            as golden in color as the rest of the room.""",
+        "exits": {
+            "south": "blue"
+        },
+        
+        "items": ["gold", "gold", "gold"]
+    }
     
 
 }                                                       # end of dictionary 'Rooms'
@@ -131,15 +132,12 @@ while (True):                                                            # just 
 
     movement = input("\nWhere do you want to go? ")
 
-    if (movement in Rooms[player_location]["exits"]):                     # check if the value of movement matches any values in exits of the room
-        player_location = Rooms[player_location]["exits"][movement]
-        describe_room(player_location)                                    # use function describe_room with parameter 'player_location'
+    if (movement in Rooms[player_location]["exits"]):                     # check if the input string of 'movement' matches any values in exits of the room
+        if (Rooms[player_location]["exits"][movement] == "wasteland"):
+            print ("\nYou will not survive without water in the Wastleland.")
+        else:
+            player_location = Rooms[player_location]["exits"][movement]       # change player_location to new room (using string input of movement as key to find the value for new room)  
+            describe_room(player_location)                                    # use function describe_room with parameter 'player_location'
 
     else:
         print("You can't go that way")
-    
-    # print(movement)
-    # print(movement in Rooms[player_location]["exits"])
-    # print(player_location)
-    # describe_room(player_location) 
-
