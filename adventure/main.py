@@ -2,9 +2,9 @@ import textwrap                                         # import textwrap module
 
 Vowels = "a", "i", "o", "u", "e"                        # create a tuple (type of list that is unchangeable) called Vowels
                                                         # tuple is a special kind of list and doesn't need [] (can use () but not necessary)
-Words_without_articles = [ "gold", "water" ]
+Words_without_articles = [ "gold", "water" ]            # create a list of words that don't use articles, to be used later with item listing
 
-Rooms = {                                               # create a dictionary called Rooms
+Rooms = {                                               # create a variable called Rooms that contains a dictionary
     "red": {                                                # create a key called 'red' with value of everything in the dictionary that follows
         "name": "The Red room",                             # create a key: value pair
         "description": """\
