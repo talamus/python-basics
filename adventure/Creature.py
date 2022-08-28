@@ -6,8 +6,16 @@ class Creature:
     items = []
 
     def __init__(self, attributes):     # Methods! 
-        # init attributes from dictionary
-        pass
+
+        def set_attribute_for_self(key, value):
+            setattr(self, key, value)
+
+        map(set_attribute_for_self, attributes.keys(), attributes.values())
+
+        #---------
+
+        for key, value in attributes.items():
+            setattr(self, key, value)
 
     def describe(self):
         print(self.description)
@@ -28,10 +36,7 @@ class Player(Creature):
 #------------------------
 # In the Main file:
 
-player = Player({})
-
-player.move("red")
+player = Player({ "name": "Joakim", "location": "red" })
 print(player.current_location)
-
 player.move("green")
 print(player.current_location)
