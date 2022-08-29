@@ -1,37 +1,25 @@
-Vowels = "a", "i", "o", "u", "e"
+from Rooms import Rooms                                 # import dictionary Rooms from file Rooms.py
+from Creature import *                                  # import all classes, variables, etc. from Creature.py (so they can be used without adding Creature. in front)
+from utils import *                                     # import all classes, variables, etc. from utils.py (like join_neatly is there now)
 
-Rooms = {
-    "red": {
-        "name": "The red room",
-        "description": "This room is red.",
-        "exits": {
-            "south": "green",
-            "north": "wasteland"
-        },
-        "items": [ "sword", "shield", "apple" ]
-    }
-}
-
-def add_an_article(item):
-    first_letter = item[0]
-    if (first_letter in Vowels):
-        return "an " + item
-    else:
-        return "a " + item
-
-def join_neatly(list_of_items):
-    list_of_items = list(list_of_items) # Force the list_of_items to be a real list! 
-    if (len(list_of_items) == 1):
-        return list_of_items[0]
-    last_item = list_of_items.pop()
-    return ", ".join(list_of_items) + " and " + last_item 
-
-def describe_room(room_id):
-    room = Rooms[room_id]
-    print("\n=== " + room["name"] + " ===")
-    print(room["description"])
-    print("There are exits to " + join_neatly(room["exits"].keys()) + ".")
-    print("You see " + join_neatly( map(add_an_article, room["items"]) ) + " here.")
 
 # The Main Program:
-describe_room("red")
+
+player = Player()
+
+player.location = "red"                                                         # starting location ("red" is found from the list of keys that is made automatically)
+describe_room(player.location)                                                  # use function describe_room with parameter 'player_location'
+
+while (True):                                                                   # just a trick to make this into a loop that runs constantly :D
+
+    movement = input("\nWhere do you want to go? ")
+
+    if (movement in Rooms[player.location]["exits"]):                           # check if the input string of 'movement' matches any values in exits of the room
+        if (Rooms[player.location]["exits"][movement] == "wasteland"):
+            print ("\nYou will not survive without water in the Wastleland.")
+        else:
+            player.location = Rooms[player.location]["exits"][movement]         # change player_location to new room (using string input of movement as key to find the value for new room)  
+            describe_room(player.location)                                      # use function describe_room with parameter 'player_location'
+
+    else:
+        print("You can't go that way")
