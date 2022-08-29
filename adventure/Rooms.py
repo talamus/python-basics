@@ -1,16 +1,17 @@
-Rooms = {                                               # create a variable called Rooms that contains a dictionary
-    "red": {                                                # create a key called 'red' with value of everything in the dictionary that follows
-        "name": "The Red room",                             # create a key: value pair
+Rooms = {                                           # Create a variable called "Rooms" that contains a dictionary
+
+    "red": {                                            # Create a key called "red" with value of everything in the dictionary that follows:
+        "name": "The Red room",                             # A key ("name") and value ("The Red room") pair
         "description": """\
             This room is red.
             The brick walls are old and crumbly, and the wall to the north has partially collapsed.
-            To the south you see something green.""",
-        "exits": {                                          # create a key 'exits' with value of the dictionary below
-            "south": "green",                                   # create a key: value pair
-            "north": "wasteland"                                # create a key: value pair
+            To the south you see something green.""",       # <-- A multiline string!!!
+        "exits": {                                          # Create a key "exits" with value of the dictionary below:
+            "south": "green",                                   # Key-value pair: Key is the direction, value is the destination room
+            "north": "wasteland"                                # Key-value pair: Key is the direction, value is the destination room
         },
-        "items": [ "sword", "shield", "apple" ]             # create a key called 'items' with a value that is a list containing the items as strings
-    },                                                      # end of dictionary 'red'
+        "items": [ "sword", "shield", "apple" ]             # Create a key called "items" with a value that is a list containing the items as strings
+    },                                                  # End of dictionary "red"
 
     "green": {
         "name": "The Green room",
@@ -62,9 +63,7 @@ Rooms = {                                               # create a variable call
         "exits": {
             "south": "blue"
         },
-        
+
         "items": ["gold", "gold", "gold"]
     }
-    
-
-}                                                       # end of dictionary 'Rooms'
+}                                                       # End of dictionary "Rooms"
