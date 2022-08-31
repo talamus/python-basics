@@ -1,6 +1,7 @@
+from operator import inv
 from Rooms import Rooms
 from creatures import player
-from utils  import *
+from utils import *
 
 
 
@@ -43,3 +44,9 @@ def examine(item):
 
 def look_around():
     describe_room(player.location)
+
+
+def inventory():
+    if player.inventory:
+        print("\nYou are carrying " + join_neatly( map(add_an_article, player.inventory) ) + " in your pockets.")
+    else: print("Your only find pocket lint.") 
