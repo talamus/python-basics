@@ -51,3 +51,19 @@ def describe_room(room_id):                                 # Define describe_ro
                                                                                                 # and the iterable is room["items"]
                                                                                                 # --> [] searches for they key 'items' in 'room,
                                                                                                 # and returns its value which is the list of items
+
+
+
+def print_obj(obj):
+    """ Print object to screen """
+
+    from pprint import pprint
+    import re
+
+    # Filter away everything like __*__:
+    keys = filter(lambda key : re.match("^__.*__$", key) == None, dir(obj))
+
+    output = {}
+    for key in list(keys):
+        output[key] = getattr(obj, key)
+    pprint(output)
