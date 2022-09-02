@@ -1,27 +1,31 @@
-from operator import inv
 from Rooms import Rooms
 from creatures import player
 from utils import *
 
 
-
-def take(item):
-    item = " ".join(item)
-    if (item in (Rooms[player.location]["items"])):
+def take(something):
+    if (something in (Rooms[player.location]["items"])):
+        index = Rooms[player.location]["items"].index(something)
+        item = Rooms[player.location]["items"].pop(index)
         player.inventory.append(item)
-        Rooms[player.location]["items"].remove(item)
-        print("You take the " + item +".")
+
+        print("You take", item.the() +".")
+    
+    elif (something in (Rooms[player.location]["fixtures"])):
+        index = Rooms[player.location]["fixtures"].index(something)
+        item = Rooms[player.location]["fixtures"][index]
+        print("You can't take", item.the() + ".")
+    
     else:
         print("There is no such thing here.")
 
 
-def drop(item):
-    item = " ".join(item)
-
-    if (item in player.inventory):
-        player.inventory.remove(item)
+def drop(something):
+    if (something in player.inventory):
+        index = player.inventory.index(something)
+        item = player.inventory.pop(index)
         Rooms[player.location]["items"].append(item)
-        print("You drop the " + item +" to the floor.")
+        print("You drop", item.the(), "to the floor.")
     else:
         print("You can't drop what you don't have.")
 
@@ -48,5 +52,6 @@ def look_around():
 
 def inventory():
     if player.inventory:
-        print("\nYou are carrying " + join_neatly( map(add_an_article, player.inventory) ) + " in your pockets.")
-    else: print("Your only find pocket lint.") 
+        print("\nYou are carrying " + join_neatly(map(str, player.inventory))+ " in your pockets.")
+    else:
+        print("Your only find pocket lint.")
