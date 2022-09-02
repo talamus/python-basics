@@ -10,5 +10,5 @@ describe_room(player.location)                                                  
 
 while (True):                                                                   # Just a trick to make this into a loop that runs constantly :D
     command = input("\nWhat next? ")                                            # take input as command
-    parse(command)                                                              # send input string to parser
+    parse(command.lower())                                                        # send input string to parser
  

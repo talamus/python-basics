@@ -34,7 +34,7 @@ def parse(command):
         case ["drop", *item]:
             Commands.drop(item)
 
-        case ["i"] | ["inventory"] | ["check", "pockets"]:
+        case ["i"] | ["inventory"] | ["check", "pockets"] | ["check", "pocket"]:
             Commands.inventory()
 
         case ["quit"]:
@@ -42,4 +42,4 @@ def parse(command):
             quit()
 
         case other:
-            print("Sorry, you can't do this yet.")
+            print("Sorry, you can't do that yet.")
