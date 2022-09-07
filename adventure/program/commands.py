@@ -1,5 +1,4 @@
-from data.rooms import Rooms
-from data.creatures import player
+from data import Rooms, player
 from program.utils import *
 
 

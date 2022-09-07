@@ -10,7 +10,7 @@ class Noun:
             input = input.split()                   # split input string into list
         else:                                       # else if input is not string (something list like, iterable)
             input = list(input)                     # make a list of input (so we don't mess up the original by mistake)
-        
+
         articles = ("a", "an", "the")               # define articles, this is a tuple list (can't be changed)
         prepositions = ("of", "with")               # define prepositions for splitting longer item names in input
 
@@ -20,20 +20,19 @@ class Noun:
 
         if input and prepositions[0] in input:
             index_list = []
-            for i in range(0, len(input)) :
-                if input[i] == prepositions[0] :
+            for i in range(0, len(input)):
+                if input[i] == prepositions[0]:
                     index_list.append(i)
 
             self.name = input.pop((index_list[0] - 1))
             self.adjectives = input
             input_new = list(input)
             self.other_names = input_new.pop(index_list[0] + 1)
-            
 
         else:
             self.name = input.pop()                     # take last item of input list, make that the name of object (becomes a string)
             self.adjectives = input                     # remaining items on input list are marked as adjectives (remains as a list)
-       
+
         print(":::", self.__dict__)
 
 
@@ -55,7 +54,7 @@ class Noun:
             map(str.lower, self.adjectives)         # with self.adjectives (adjectives of the object) (mapped to lowercase)
         ))
 
-        if self.name.lower() == other.name.lower():    # if input is exactly the object name    
+        if self.name.lower() == other.name.lower():    # if input is exactly the object name
             if difference:                             # and then if difference returns True (meaning result of it is not empty, there are differencies)
                 return False                           # then return False (input and object don't match)
             else: return True                          # at least part of input matches object, so return True
@@ -65,13 +64,13 @@ class Noun:
         output = []
         if self.article:
             output.append(self.article)
-        
+
             if self.other_names:
                 output.append(self.name)
                 output += self.adjectives
                 return " ".join(output)
 
-            else:    
+            else:
                 output += self.adjectives                      # a+=b is shorthand for a = a + b :) so this adds self.adjectives to output
                 output.append(self.name)
                 return " ".join(output)
