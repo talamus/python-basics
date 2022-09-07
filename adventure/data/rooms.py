@@ -1,3 +1,6 @@
+from program.classes.item import Item, Fixture
+from data.items import *
+
 Rooms = {                                           # Create a variable called "Rooms" that contains a dictionary
 
     "red": {                                            # Create a key called "red" with value of everything in the dictionary that follows:
@@ -10,8 +13,9 @@ Rooms = {                                           # Create a variable called "
             "south": "green",                                   # Key-value pair: Key is the direction, value is the destination room
             "north": "wasteland"                                # Key-value pair: Key is the direction, value is the destination room
         },
-        "items": [ "sword", "shield", "apple" ]             # Create a key called "items" with a value that is a list containing the items as strings
-    },                                                  # End of dictionary "red"
+        "items": [ Item("a sword") , Item("a shield"), apple ],             # Create a key called "items" with a value that is a list containing the items as objects
+        "fixtures": []
+    },                                                                     # End of dictionary "red"
 
     "green": {
         "name": "The Green room",
@@ -23,7 +27,8 @@ Rooms = {                                           # Create a variable called "
             "east": "blue",
             "south": "purple"
         },
-        "items": ["golden ring"]
+        "items": [Item("a golden ring"), Item("a book of magic spells of destruction")],
+        "fixtures": []
     },
 
     "purple": {
@@ -34,7 +39,8 @@ Rooms = {                                           # Create a variable called "
         "exits": {
             "north": "green"
         },
-        "items": ["blue key", "empty bottle" ]
+        "items": [Item("a blue key"), Item("an empty bottle") ],
+        "fixtures": []
 
     },
 
@@ -43,14 +49,15 @@ Rooms = {                                           # Create a variable called "
         "description": """\
             This room is blue.
             It's a large cave of bluish rock, with a bubbling natural fountain at the center of it.
-            The water looks drinkable.
-            Through an opening in the north wall, you see something glittering, and hear sounds of a large beast breathing as if asleep.
+            Through an opening in the north wall, you see something glittering,
+            and hear sounds of a large beast breathing.
             """,
         "exits": {
             "west": "green",
             "north": "golden"
         },
-        "items": []
+        "items": [],
+        "fixtures": [Fixture("water")]
     },
 
     "golden": {
@@ -64,6 +71,7 @@ Rooms = {                                           # Create a variable called "
             "south": "blue"
         },
 
-        "items": ["gold", "gold", "gold"]
+        "items": [Item("gold"), Item("gold"), Item("gold")],
+        "fixtures": []
     }
 }                                                       # End of dictionary "Rooms"
