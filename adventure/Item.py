@@ -1,7 +1,9 @@
 from Noun import Noun
 
 class Item(Noun):
-    pass
+    def __init__(self, name, messages={}):
+        super().__init__(name)
+        self.messages = messages
 
 class Fixture(Item):
     pass

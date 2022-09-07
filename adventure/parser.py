@@ -1,7 +1,6 @@
 import Commands
 
 
-
 def parse(command):
 
     match list(filter(lambda word : word not in ("a", "an", "the"), command.split())):
@@ -22,7 +21,7 @@ def parse(command):
         case ["go", "to", direction] | ["go", direction]:
             Commands.go(direction)
        
-        case ["look", "at", *item] | ["examine", *item]:                # if you use *item, it will be a list (of strings), if just item, it will be a string
+        case ["look", "at", *item] | ["examine", *item] | ["ex", *item]:                # if you use *item, it will be a list (of strings), if just item, it will be a string
             Commands.examine(item)
 
         case ["l"] | ["look"] | ["look", "around"]:
