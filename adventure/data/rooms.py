@@ -1,5 +1,5 @@
-from Item import Item, Fixture
-from items import *
+from program.classes.item import Item, Fixture
+from data.items import *
 
 Rooms = {                                           # Create a variable called "Rooms" that contains a dictionary
 

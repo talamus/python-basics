@@ -1,4 +1,4 @@
-from Item import Item
+from program.classes.item import Item
 
 apple = Item("an apple", {
     "examine": "It's a Granny Smith.",

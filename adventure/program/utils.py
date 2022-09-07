@@ -1,6 +1,6 @@
 import textwrap                                             # Import textwrap module (to help with long description indentation problems)
-from Rooms import Rooms                                     # Import dictionary Rooms from file Rooms.py
-from Item import Item
+from data.rooms import Rooms                                     # Import dictionary Rooms from file Rooms.py
+from program.classes.item import Item
 
 
 

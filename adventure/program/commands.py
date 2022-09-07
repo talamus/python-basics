@@ -1,6 +1,6 @@
-from Rooms import Rooms
-from creatures import player
-from utils import *
+from data.rooms import Rooms
+from data.creatures import player
+from program.utils import *
 
 
 def take(something):

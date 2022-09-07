@@ -1,4 +1,4 @@
-from Noun import Noun
+from program.classes.noun import Noun
 
 class Item(Noun):
     def __init__(self, name, messages={}):
