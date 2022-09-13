@@ -33,9 +33,6 @@ class Noun:
             self.name = input.pop()                     # take last item of input list, make that the name of object (becomes a string)
             self.adjectives = input                     # remaining items on input list are marked as adjectives (remains as a list)
 
-        print(":::", self.__dict__)
-
-
     def the(self):
         output = []
         if self.article:
