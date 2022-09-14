@@ -62,12 +62,12 @@ class Noun:
         if self.article:
             output.append(self.article)
 
-            if self.other_names:
-                output.append(self.name)
-                output += self.adjectives
-                return " ".join(output)
+        if self.other_names:
+            output.append(self.name)
+            output += self.adjectives
+            return " ".join(output)
 
-            else:
-                output += self.adjectives                      # a+=b is shorthand for a = a + b :) so this adds self.adjectives to output
-                output.append(self.name)
-                return " ".join(output)
+        else:
+            output += self.adjectives                      # a+=b is shorthand for a = a + b :) so this adds self.adjectives to output
+            output.append(self.name)
+            return " ".join(output)

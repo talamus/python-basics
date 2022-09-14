@@ -1,9 +1,5 @@
 from pprint import pprint
 
-class Noun:
-    def __init__(self, name):
-        self.name = name
-
 class Invisible:
     def __init__(self, invisible=True):
         self.invisible = invisible
@@ -40,24 +36,32 @@ class Inventory:
         else:
             return self.messages["empty"]
 
+#===============================================================
+
+class Noun:                                 # Thin Noun (Not the fat fleshy one)
+    def __init__(self, name):
+        self.name = name
+
 class Item(Noun):
     def __init__(self, name, *properties):
         super().__init__(name)
 
         def return_only_objects(thing):
-            if isinstance(thing, type):
-                return thing()
+            if isinstance(thing, type):     # If thing is a class
+                return thing()              # Make an object out of it
             else:
-                return thing
+                return thing                # Otherwise just use the thing
 
+        # Make sure that all properties are objects (not classes)
         properties = map(return_only_objects, properties)
 
+        # The main thing: let's add attributes to the Item
         for property in properties:
             setattr(self, property.__class__.__name__.lower(), property)
 
-        self.properties = properties
+        self.properties = properties        # Remember properties objects (Not really used...)
 
-    def __getattr__(self, attr_name):
+    def __getattr__(self, attr_name):       # Catch attribute KeyErrors, return None instead
         try:
             return self.__dict__[attr_name]
         except KeyError:
