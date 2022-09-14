@@ -1,58 +1,101 @@
 from string import Formatter
+from textwrap import TextWrapper
 from program.classes.noun import Noun
-from program.utils import join_neatly
 
-class SentenceFormatter(Formatter):
+class StoryFormatter(Formatter):
     sentences = []
+    textwrapper = None
+
+    def __init__(self, width=70, left_margin="    ", first_paragraph_indent="", following_paragraph_indent="    "):
+        self.left_margin = left_margin
+        self.first_paragraph_indent = first_paragraph_indent
+        self.following_paragraph_indent = following_paragraph_indent
+        self.sentences = []
+        self.textwrapper = TextWrapper(
+            width=width,
+            initial_indent=first_paragraph_indent + left_margin,
+            subsequent_indent=left_margin
+        )
 
     def __str__(self):
-        return " ".join(self.sentences)
+        text = " ".join(self.sentences)
+        return "\n".join(self.textwrapper.wrap(text))
 
-    def format(self, format_string, **args):
-        self.sentences.append(super().format(format_string, **args))
+    def end_chapter(self):
+        print(str(self))
+        self.sentences = []
+        self.textwrapper.initial_indent = self.left_margin + self.first_paragraph_indent
+
+    def start_new_paragraph(self):
+        print(str(self))
+        self.sentences = []
+        self.textwrapper.initial_indent = self.left_margin + self.following_paragraph_indent
+
+    def say_sentence(self, format_string, *args, **kwargs):
+        self.format(format_string, *args, **kwargs)
+
+    def format(self, format_string, *args, **kwargs):
+        self.sentences.append(super().format(format_string, *args, **kwargs))
 
     def format_field(self, value, format_spec):
 
-        #   :and    <- last_separator = "and" (the default)
-        #   :or     <- last_separator = "or"
-        #   :a :an  <- noun_article = "a" or "an" or empty (Noun handles this)
-        #   :the    <- noun_article = "the" or empty (Noun handles this)
+        # Make sure we are handling a list of nouns (or something very similar)
+        words=None
+        match value:
+            case list() | tuple() as value: words = list(map(Noun, value))
+            case str()            as value: words = [ Noun(value) ]
+            case Noun()           as value: words = [ value ]
+            case _: return super().format_field(value, format_spec)
 
-        article = "an"
+        if not len(words):
+            return "nothing"
+
+        # Parse formatting info:
+        #   :or         last_separator = "or"
+        #   :the        noun_prefix = "the"
+        #   :some       noun_prefix = "some"
+        noun_prefix = None
         last_separator = "and"
         for spec in format_spec.split(":"):
-            if spec == "and":
-                last_separator = "and"
-            elif spec == "or":
-                last_separator = "or"
-            elif spec == "the":
-                article = "the"
-            elif spec == "a" or spec == "an":
-                article = "an"
+            match spec:
+                case "or":   last_separator = "or"
+                case "the":  noun_prefix = "the"
+                case "some": noun_prefix = "some"
+                case "":     pass
+                case _:      raise ValueError(f"Unknown format spec `{spec}`")
 
-        if isinstance(value, Noun):
-            value = [value]
+        # Convert words into strings (with correct prefixes)
+        words = list(map(lambda noun: noun.__str__(prefix=noun_prefix), words))
 
-        if isinstance(value, list):
-            if article == "the":
-                value = list(map(lambda noun: noun.the(), value))
-            value = list(map(lambda noun: str(noun), value))
-            value = join_neatly(value)
-
-        if not isinstance(value, str):
-            value = str(value)
-
-        return super().format(value, format_spec)
+        if len(words) == 1:
+            return words[0]
+        last_word = words.pop()
+        return ", ".join(words) + " " + last_separator + " " + last_word
 
 #===================================================================
 
-text_output = SentenceFormatter()
-add_sentence = text_output.format
+storyformatter = StoryFormatter()
 
-add_sentence("Jaakolla oli iso {kala:the}.", kala=Noun("a makkara"))
-add_sentence("Se oli tosi {nasta}.", nasta=[Noun("nice"), Noun("lovely"), Noun("the best")])
+say_sentence        = storyformatter.say_sentence
+start_new_paragraph = storyformatter.start_new_paragraph
+end_chapter         = storyformatter.end_chapter
 
-print("--------------------")
-print(text_output)
+say_sentence("Joopa joo.")
+say_sentence("Jaakolla oli iso {:the}.", Noun("a makkara"))
+say_sentence("Se oli tosi {nasta:the}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+say_sentence("Jaakolla oli iso {}.", Noun("a makkara"))
+say_sentence("Se oli tosi {nasta:or:some}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+say_sentence("Jaakolla oli iso {}.", Noun("a makkara"))
+say_sentence("Se oli tosi {nasta:the}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+say_sentence("Jaakolla oli iso {}.", [])
+start_new_paragraph()
+say_sentence("Makkara oli tosi {nasta:the}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+say_sentence("Jaakolla oli iso {}.", Noun("a makkara"))
+say_sentence("Se oli tosi {nasta:the}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+say_sentence("Jaakolla oli iso {}.", Noun("a makkara"))
+say_sentence("Sen koko oli {:.2f} megapascalia.", 123.456789)
+say_sentence("Jaakolla oli iso {}.", Noun("a makkara"))
+say_sentence("Se oli tosi {nasta:the}.", nasta=[Noun("nice"), Noun("lovely"), "a best"])
+end_chapter()
 
 
