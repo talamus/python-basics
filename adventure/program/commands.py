@@ -79,3 +79,10 @@ def inventory():
         print("\nYou are carrying " + join_neatly(map(str, player.inventory))+ " in your pockets.")
     else:
         print("Your only find pocket lint.")
+
+
+#def reveal():
+
+    # check if item has reveal property then 
+    # either error message
+    # or send stuff to properties to handle
