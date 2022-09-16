@@ -1,7 +1,15 @@
 import textwrap                                             # Import textwrap module (to help with long description indentation problems)
+import re
 
 from data import Rooms                                      # Import dictionary Rooms from file Rooms.py
 from program.classes.item import Item
+
+
+camel_to_snake_case_re = re.compile(r"(?<!^)(?=[A-Z])")     # Precompile a regular expression pattern
+def camel_to_snake_case(string):
+    """ Convert CamelCaseString to snake_case_string. """
+    return camel_to_snake_case_re.sub('_', string).lower()
+
 
 def join_neatly(list_of_items: list[str]) -> str:
     """ Join a list of items neatly for output. """
