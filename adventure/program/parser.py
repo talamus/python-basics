@@ -7,19 +7,19 @@ def parse(input):
 
         case ["n"] | ["north"]:
             command.go("north")
-        
+
         case ["e"] | ["east"]:
             command.go("east")
 
         case ["s"] | ["south"]:
             command.go("south")
-        
+
         case ["w"] | ["west"]:
             command.go("west")
 
         case ["go", "to", direction] | ["go", direction]:
             command.go(direction)
-       
+
         case ["look", "at", *item] | ["examine", *item] | ["ex", *item]:                # if you use *item, it will be a list (of strings), if just item, it will be a string
             command.examine(item)
 
@@ -31,6 +31,12 @@ def parse(input):
 
         case ["drop", *item]:
             command.drop(item)
+
+        case ["wear", *item] | ["put", "on", *item] | ["put", *item, "on"]:
+            command.wear(item)
+
+        case ["remove", *item] | ["take", "off", *item] | ["take", *item, "off"]:
+            command.remove(item)
 
         case ["i"] | ["inventory"] | ["check", "pockets"] | ["check", "pocket"]:
             command.inventory()

@@ -1,9 +1,9 @@
 from program.classes.item import Item, Fixture
 from data.items import *
 
-Rooms = {                                           # Create a variable called "Rooms" that contains a dictionary
+Rooms = {                                                   # Create a variable called "Rooms" that contains a dictionary
 
-    "red": {                                            # Create a key called "red" with value of everything in the dictionary that follows:
+    "red": {                                                # Create a key called "red" with value of everything in the dictionary that follows:
         "name": "The Red room",                             # A key ("name") and value ("The Red room") pair
         "description": """\
             This room is red.
@@ -27,7 +27,7 @@ Rooms = {                                           # Create a variable called "
             "east": "blue",
             "south": "purple"
         },
-        "items": [Item("a golden ring"), Item("a book of magic spells of destruction")],
+        "items": [ring, Item("a book of magic spells of destruction")],
         "fixtures": []
     },
 
@@ -37,10 +37,11 @@ Rooms = {                                           # Create a variable called "
             This room is purple.
             Looks like something spewed purple slime all over the place, even the floor is slippery.""",
         "exits": {
-            "north": "green"
+            "north": "green",
+            "hidden east": "secret"
         },
         "items": [Item("a blue key"), Item("an empty bottle") ],
-        "fixtures": []
+        "fixtures": [hidden_door]
 
     },
 
@@ -72,6 +73,20 @@ Rooms = {                                           # Create a variable called "
         },
 
         "items": [Item("gold"), Item("gold"), Item("gold")],
+        "fixtures": []
+    },
+
+
+    "secret": {
+        "name": "The Secret Room",
+        "description": """\
+            This is the Secret Room
+            It looks like it could be hiding something.""",
+        "exits": {
+            "hidden west": "purple"
+        },
+
+        "items": [],
         "fixtures": []
     }
 }                                                       # End of dictionary "Rooms"

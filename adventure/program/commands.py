@@ -9,12 +9,12 @@ def take(something):
         player.inventory.append(item)
 
         print("You take", item.the() +".")
-    
+
     elif something in (Rooms[player.location]["fixtures"]):
         index = Rooms[player.location]["fixtures"].index(something)
         item = Rooms[player.location]["fixtures"][index]
         print("You can't take", item.the() + ".")
-    
+
     else:
         print("There is no such thing here.")
 
@@ -22,23 +22,47 @@ def take(something):
 def drop(something):
     if something in player.inventory:
         index = player.inventory.index(something)
+        item = player.inventory[index]
+        if item.wearable and item.wearable.worn:                            # katso ensin item.wearable, jos siitä tulee None, lopeta, jos ei, tarkista worn
+            print("You have to remove it first.")
+            return
         item = player.inventory.pop(index)
         Rooms[player.location]["items"].append(item)
         print("You drop", item.the(), "to the floor.")
     else:
         print("You can't drop what you don't have.")
 
+def wear(something):
+    if something in player.inventory:
+        index = player.inventory.index(something)
+        item = player.inventory[index]
+
+        if item.wearable:
+            item.wearable.wear()
+
+def remove(something):
+    if something in player.inventory:
+        index = player.inventory.index(something)
+        item = player.inventory[index]
+        if item.wearable:
+            item.wearable.remove()
+
 
 def go(direction):
     room = Rooms[player.location]
+
+    if direction not in room["exits"]:
+        if ring.wearable.worn and "hidden "+direction in room["exits"]:
+            direction = "hidden "+direction
+
     if direction in room["exits"]:
-        if room["exits"][direction] == "wasteland":         
+        if room["exits"][direction] == "wasteland":
             print ("\nYou will not survive without water in the Wastleland.")
         else:
-            player.location = room["exits"][direction]         
-            describe_room(player.location)                                      
-    else: 
-        print("You can't go that way") 
+            player.location = room["exits"][direction]
+            describe_room(player.location)
+    else:
+        print("You can't go that way")
 
 
 def examine(something):
@@ -46,7 +70,7 @@ def examine(something):
 
     if something in player.inventory:
         index = player.inventory.index(something)
-        item = player.inventory[index]        
+        item = player.inventory[index]
 
     elif something in Rooms[player.location]["items"]:
         index = Rooms[player.location]["items"].index(something)
@@ -58,15 +82,12 @@ def examine(something):
 
 
     if item:
-        if "examine" in item.messages:
-            print(item.messages["examine"])
-        else:
-            print("It looks very plain.")
+        print("It looks very plain.")
     else:
-        print("You see no such thing.") 
+        print("You see no such thing.")
 
 
-   
+
    # print("The", " ".join(item), "looks very complicated.")
 
 
@@ -83,6 +104,6 @@ def inventory():
 
 #def reveal():
 
-    # check if item has reveal property then 
+    # check if item has reveal property then
     # either error message
     # or send stuff to properties to handle

@@ -6,6 +6,9 @@ class Noun:
     other_names = None
 
     def __init__(self, input):                      # define __init__ that is called every time Noun type object is created
+        if isinstance(input, Noun):
+            input = str(input)
+            
         if isinstance(input, str):                  # if input is string
             input = input.split()                   # split input string into list
         else:                                       # else if input is not string (something list like, iterable)
@@ -33,7 +36,6 @@ class Noun:
             self.name = input.pop()                     # take last item of input list, make that the name of object (becomes a string)
             self.adjectives = input                     # remaining items on input list are marked as adjectives (remains as a list)
 
-        print(":::", self.__dict__)
 
 
     def the(self):

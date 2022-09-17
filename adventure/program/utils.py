@@ -1,6 +1,7 @@
 import textwrap                                             # Import textwrap module (to help with long description indentation problems)
 
 from data import Rooms                                      # Import dictionary Rooms from file Rooms.py
+from data import *
 from program.classes.item import Item
 
 def join_neatly(list_of_items: list[str]) -> str:
@@ -21,17 +22,47 @@ def describe_room(room_id: str):
     print("\n=== " + room["name"] + " ===\n")               # Prints room name --> request value of key 'name' from room (which points to Rooms) ( === The red room === )
     print(textwrap.dedent(room["description"]))             # Print value of key 'description' (room <-- room_id <-- the parameter currently used by describe_room)
 
-    print("\nThere are exits to the " + join_neatly(room["exits"].keys()) + ".")    # Print values to keys to 'exits' in 'room'
+    if room["exits"]:
+        exits = list(room["exits"])
+        hidden_exits = []
+        for exit in exits:
+            if "hidden" in exit:
+                exit_parts = exit.split()
+                hidden_exits.append(exit_parts[1])
+                exits.remove(exit)
+
+        if not exits:
+            print("\nYou see no way out!")
+        elif len(exits) == 1:
+            print("\nThere is an exit to the " + join_neatly(exits) + ".")
+        else:
+            print("\nThere are exits to the " + join_neatly(exits) + ".")
+
+        if ring in player.inventory and ring.wearable.worn:
+            if len(hidden_exits) != 0:
+                if len(hidden_exits) == 1:
+                    print("You see a glowing exit to the " + join_neatly(hidden_exits) + ".")
+                else:
+                    print("You see glowing exits to the " + join_neatly(hidden_exits) + ".")
+
+
+
+        #print("\nThere are exits to the " + join_neatly(room["exits"].keys()) + ".")    # Print values to keys to 'exits' in 'room'
                                                                                     # .keys() is built-in dictionary method,
                                                                                     # here targeting the VALUE (which is a dictionary) of KEY 'room["exits"]'
                                                                                     # .keys() returns a list of dict_keys format, which is not a normal list!
                                                                                     # note, join_neatly forces dict_keys list to become normal list
                                                                                     # finally you get "There are exits to south and north" for this example
 
-    if (room["items"]):                                                 # If list has things in it, it returns value 'True' and the loop runs
-        print("\nYou see " + join_neatly(map(str, room["items"])) + " here.")     # Print items in room using join_neatly
-                                                                        # [] searches for they key 'items' in 'room,
-                                                                        # and returns its value which is the list of items
+    if (room["items"]):                                                             # If list has things in it, it returns value 'True' and the loop runs
+        print("\nYou see " + join_neatly(map(str, room["items"])) + " here.")       # Print items in room using join_neatly
+                                                                                    # [] searches for they key 'items' in 'room,
+                                                                                    # and returns its value which is the list of items
+
+    if (room["fixtures"]):                                                          # If list has things in it, it returns value 'True' and the loop runs
+        for fixture in room["fixtures"]:
+            if not fixture.hidden.hidden:
+                print("\nYou see " + str(fixture) + " here.")
 
 
 def list_index(short_list: str | list[str], long_list: list[str]) -> int:

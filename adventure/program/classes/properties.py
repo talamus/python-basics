@@ -21,3 +21,7 @@ class Wearable(Property):
             print("You take the thing off.")
         else:
             print("You are not wearing it.")
+
+class Hidden(Property):
+    def __init__(self, hidden=True):
+        self.hidden = hidden
