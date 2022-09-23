@@ -47,6 +47,30 @@ def remove(something):
         if item.wearable:
             item.wearable.remove()
 
+def equip(something):
+    if something in player.inventory:
+        index = player.inventory.index(something)
+        item = player.inventory[index]
+        if item.equipable:
+            item.equipable.equip()
+
+
+def unequip(something):
+    if something in player.inventory:
+        index = player.inventory.index(something)
+        item = player.inventory[index]
+        if item.equipable.equipped:
+            if backpack in player.inventory:
+                item.equipable.unequip(item)
+                backpack.inventory.append(item)
+                print("You unequip it and put it in your backpack.")
+            else:
+                drop(item)
+                print("You don't have any place to store it so you drop it to the floor.")
+
+
+    elif item.equipable.unequiped:
+        print("You have already equipped that.")
 
 def go(direction):
     room = Rooms[player.location]

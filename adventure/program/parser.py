@@ -41,6 +41,9 @@ def parse(input):
         case ["i"] | ["inventory"] | ["check", "pockets"] | ["check", "pocket"]:
             command.inventory()
 
+        case ["equip", *item] | ["e", *item]:
+            command.equip(item)
+
         case ["quit"]:
             print("\nQuitters!\n")
             quit()

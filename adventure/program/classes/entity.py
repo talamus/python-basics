@@ -1,6 +1,7 @@
 from program.classes.noun import Noun
 
-class Item(Noun):
+
+class Entity:
 
     def __init__(self, name, *properties):                      # *properties - kaikki namen jälkeen tuleva menee listaan properties (* on lista, ** olisi dictionary)
         super().__init__(name)
@@ -24,7 +25,11 @@ class Item(Noun):
                                                                         # key-value parina joka osoittaa property objektiin
    # def lose_property(self, property):
 
-
-class Fixture(Item):
+class Item(Entity):
     pass
+
+class Fixture(Entity):
+    pass
+
+
 

@@ -1,5 +1,5 @@
 import program
-from data import player
+from data.player import player
 
 def main():                                     # The Main Program:
 

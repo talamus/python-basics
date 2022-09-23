@@ -1,4 +1,4 @@
-from program.classes.item import Item, Fixture
+from adventure.program.classes.entity import *
 from data.items import *
 
 Rooms = {                                                   # Create a variable called "Rooms" that contains a dictionary
