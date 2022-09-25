@@ -1,5 +1,4 @@
 from math import nan            # "nan" is a numeric 'nothing' value that Tero wanted to use :)
-from program import *
 from program.classes.entity import Entity
 
 class Creature(Entity):                 # This is the main class, that the other creatures derive stuff from

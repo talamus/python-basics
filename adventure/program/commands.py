@@ -1,6 +1,6 @@
-from data import Rooms, player
+from data.rooms import Rooms
+from data.player import player
 from program.utils import *
-
 
 def take(something):
     if something in (Rooms[player.location]["items"]):

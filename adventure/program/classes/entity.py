@@ -1,7 +1,7 @@
 from program.classes.noun import Noun
 
 
-class Entity:
+class Entity(Noun):
 
     def __init__(self, name, *properties):                      # *properties - kaikki namen jälkeen tuleva menee listaan properties (* on lista, ** olisi dictionary)
         super().__init__(name)

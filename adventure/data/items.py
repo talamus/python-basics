@@ -1,5 +1,6 @@
-from adventure.program.classes.entity import Item, Fixture
+from program.classes.entity import Item
 from program.classes.properties import *
+
 
 apple = Item("an apple"
 
@@ -14,4 +15,4 @@ ring = Item(" a golden ring", Wearable)
 
 sword = Item("an iron sword", Equipable, Iron)
 
-backpack = Item("a trusty old backpack", Equipable, Wearable, Inventory, inventory = [])
+backpack = Item("a trusty old backpack", Equipable, Wearable, Inventory(inventory=[]))

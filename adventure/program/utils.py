@@ -1,8 +1,7 @@
 import textwrap                                             # Import textwrap module (to help with long description indentation problems)
-
-from data import Rooms                                      # Import dictionary Rooms from file Rooms.py
-from data import *
-from adventure.program.classes.entity import Item
+from data.rooms import Rooms
+from data.items import *
+from data.player import *
 
 def join_neatly(list_of_items: list[str]) -> str:
     """ Join a list of items neatly for output. """

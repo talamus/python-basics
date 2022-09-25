@@ -1,4 +1,6 @@
-from adventure.program.classes.entity import *
+from program.classes.entity import Item                     # REMOVE when all items properly in the items file
+from program.classes.entity import Fixture
+
 from data.items import *
 
 Rooms = {                                                   # Create a variable called "Rooms" that contains a dictionary
@@ -41,7 +43,7 @@ Rooms = {                                                   # Create a variable 
             "hidden east": "secret"
         },
         "items": [Item("a blue key"), Item("an empty bottle") ],
-        "fixtures": [hidden_door]
+        "fixtures": [Fixture("a hidden door")]
 
     },
 
@@ -89,4 +91,4 @@ Rooms = {                                                   # Create a variable 
         "items": [],
         "fixtures": []
     }
-}                                                       # End of dictionary "Rooms"
+}     # End of dictionary "Rooms"

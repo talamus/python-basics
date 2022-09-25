@@ -1,2 +1,2 @@
-import program
-program.main()
+from program.main import main
+main()

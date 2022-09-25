@@ -65,7 +65,7 @@ class Container(Property):
 
 
 class Metallic(Property):
-    def __init__(self, conductive=True, rusting=False)
+    def __init__(self, conductive=True, rusting=False):
         self.conductive = conductive
         self.rusting = rusting
 
@@ -77,7 +77,7 @@ class Iron(Metallic):
 
 
 class Fragile(Property):
-    def __init__(self, broken = False)
+    def __init__(self, broken = False):
         self.broken = broken
 
 class Glass(Fragile):
